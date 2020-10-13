@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 int maxd1 = 0;
 int maxd = 0;
 int seat1 = 0;
