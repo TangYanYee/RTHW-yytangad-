@@ -4,7 +4,6 @@
 #include <string.h>
 #include "i_give_you.h"
 
-char inpdate[10];
 day_info InpDay[30];
 int cnt = 0;
 void printenum_month(int sinp){
@@ -75,7 +74,7 @@ void WhichDay(){
 
 void HappyDay(){
   bool multiH = false;
-  printf("Name of holiday: "); 
+  printf("Name of holiday: ");
   if(InpDay[cnt].date == 1 && InpDay[cnt].month == 1){
     strcpy(InpDay[cnt].name_of_special_day,"First Day of January");
     multiH = true;
@@ -136,8 +135,9 @@ bool is_valid_date() {
 }
 
 void date_input() {
+  char inpdate[10];
   printf("Please input a date (DD/MM/YYYY): ");
-  scanf("%s",inpdate); 
+  scanf("%s",inpdate);
   //turn string into int
   InpDay[cnt].date = (inpdate[0]-48)*10 + (inpdate[1]-48);
   InpDay[cnt].month = (inpdate[3]-48)*10 + (inpdate[4]-48);
@@ -212,6 +212,11 @@ void select_saved_data(){
     }
     printf("Please select the saved data from the list:\n");
     scanf("%d", &sinp);
+    while(sinp < 1||sinp > cnt){
+    printf("Invaild input!\n");
+    printf("Please select the saved data from the list:\n");
+    scanf("%d", &sinp);
+    }
     printf("Date: %02d\n", InpDay[sinp-1].date);
     printenum_month(sinp-1);
     printf("Year: %d\n", InpDay[sinp-1].year);
