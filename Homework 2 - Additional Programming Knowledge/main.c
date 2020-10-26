@@ -27,7 +27,7 @@ Comp.y = 0;
         printf("Press enter to START!!\n");
         scanf("%c", &start);
         if(start == '\n'){
-        printf("Please enter the number you want to play:\n1: PVP\n2: PVC\n");
+        printf("Please enter the number you want to play:\n1: PVP(player vs player)\n2: PVC(player vs stupid computer)\n");
         scanf("%c",&mode);
         if(mode == '1'){
           state = GameState;
@@ -103,16 +103,14 @@ Comp.y = 0;
           } 
         break;
         case EndState:
-        printf("Type E to EXIT!! or R to RESTART\n");
-        scanf("%c", &start);
+          while(state == EndState){
+          scanf("%c", &start);
           if(start == 'E'){
+            printf("Thanks for playing bye :P");
             return 0;
-          }else if(start == 'R'){
-            state = StartState;
-            break;
           }
           break;
-          
+        } 
         } 
       }
   return 0;

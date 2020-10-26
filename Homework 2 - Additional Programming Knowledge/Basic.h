@@ -11,8 +11,3 @@ typedef enum {
 typedef enum { 
   StartState, GameState, SELECT_MODE, EndState         
 } STATES;
-typedef struct {
-    int x;
-    int y;
-    char sign;
-} pData;
