@@ -44,12 +44,13 @@ bool ValidInp(int x, int y,char arr[16][16],bool isPpl){//this fuction is for ch
     return false;
   }
 }
-void Win_1(char arr[16][16], int cnt[6],STATES* state ,pData P,int x,int y, int k){
+void Win_1(char arr[16][16], int cnt[6],STATES* state ,pData P,int x,int y, int k,bool winned,bool *adwin){
   //this is sub fuction because i am lazy so i make this to make it look somehow "shorter"
-  if(arr[x][y] == P.sign && x > 0 && x < 16){
+  if((arr[x][y] == P.sign && x > 0 && x < 16) && winned == false){
         cnt[k]++;
         if(cnt[k] == 5){
           *state = EndState;
+          *adwin = true;
           if(P.sign == 'X'){
             printf("P1 Win!!\n");
             printf("Type E to EXIT!!\n");
@@ -64,16 +65,17 @@ void Win_1(char arr[16][16], int cnt[6],STATES* state ,pData P,int x,int y, int 
 }
 void Win(char arr[16][16],pData P,STATES* state){//P1:X P2:O
 //this is the fuction which check whether user win or not
+  bool winned = false;
   int cnt[6] = {0,0,0,0,0,0};
   for(int x = 1; x < 16; x++){
    int i = 0;
     for(int y = 1; y < 16; y++){
-      Win_1(arr,cnt,state,P,x,y,0);//vertical
-      Win_1(arr,cnt,state,P,y,x,1);//horrizontal
-      Win_1(arr,cnt,state,P,x+i-15,y,2);//oblique 1 uppercase
-      Win_1(arr,cnt,state,P,x+i,y,3);//oblique 1 lowercase
-      Win_1(arr,cnt,state,P,y,x-i,4);//oblique 2 uppercase
-      Win_1(arr,cnt,state,P,y,16-i+x,5);//oblique 2 lowercase
+      Win_1(arr,cnt,state,P,x,y,0,winned,&winned);//vertical
+      Win_1(arr,cnt,state,P,y,x,1,winned,&winned);//horrizontal
+      Win_1(arr,cnt,state,P,x+i-15,y,2,winned,&winned);//oblique 1 uppercase
+      Win_1(arr,cnt,state,P,x+i,y,3,winned,&winned);//oblique 1 lowercase
+      Win_1(arr,cnt,state,P,y,x-i,4,winned,&winned);//oblique 2 uppercase
+      Win_1(arr,cnt,state,P,y,16+x-i,5,winned,&winned);//oblique 2 lowercase
       i++;
     }
   }

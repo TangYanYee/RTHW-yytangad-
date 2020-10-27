@@ -80,6 +80,7 @@ Comp.y = 0;
               IChart(P1.x, P1.y, arr,P1);
               turn = COMP_TURN; 
               pChart(arr);
+              printf("hihi\n");
               Win(arr,P1,&state);
               break;
             case PLAYER2_TURN:
@@ -89,16 +90,22 @@ Comp.y = 0;
                 CompFirstStep = false;
                 turn = PLAYER1_TURN; 
                 printf("This is how a -IQ computer reacts:\n");
+                if(P1.x!=8 || P1.y!=8){
+                  Comp.x = 8;
+                  Comp.y = 8;
+                  IChart(Comp.x,Comp.y, arr,Comp);
+                }else{
                 compWhatevermove(Comp,P1,arr,&Comp.x,&Comp.y);
+                }
                 pChart(arr);
               }else{
                 printf("This is how a -IQ computer reacts:\n");
-                //printf("Data outside:%d %d\n",Comp.x,Comp.y);
                 VERY_STUPID_COMP(P1,Comp,arr,&Comp.x,&Comp.y);
                 turn = PLAYER1_TURN; 
                 pChart(arr);
-                Win(arr,Comp,&state);
               }
+              printf("haha\n");
+              Win(arr,Comp,&state);
               break;
           } 
         break;
