@@ -80,7 +80,7 @@ Comp.y = 0;
               IChart(P1.x, P1.y, arr,P1);
               turn = COMP_TURN; 
               pChart(arr);
-              printf("hihi\n");
+              //printf("hihi\n");
               Win(arr,P1,&state);
               break;
             case PLAYER2_TURN:
@@ -104,7 +104,7 @@ Comp.y = 0;
                 turn = PLAYER1_TURN; 
                 pChart(arr);
               }
-              printf("haha\n");
+              //printf("haha\n");
               Win(arr,Comp,&state);
               break;
           } 

@@ -305,6 +305,58 @@ void Win_sure(char arr[16][16], int cnt[6],pData P1, pData Comp,int x,int y, int
     break;
   }
 }
+void Win_OOO(char arr[16][16], int cnt[6],pData P1, pData Comp,int x,int y, int k,bool compMove,bool * adcompMove){//this is use for checking whether comp can win in OO O, O OO, OO OO
+  switch(k){
+    case 0:
+      if(arr[x][y] == 'O' && arr[x][y+1] == 0 && arr[x][y+2] == 'O' && y-1 > 0 && y+3 < 16&& compMove == false){
+        Comp.x = x;
+        Comp.y = y+1;
+        *adcompMove = true;
+        IChart(Comp.x, Comp.y, arr,Comp);
+      }
+    break;
+    case 1:
+      if(arr[x][y] == 'O' && arr[x+1][y] == 0 && arr[x+2][y] == 'O' && x > 0 && x < 16&& compMove == false){
+        Comp.x = x+1;
+        Comp.y = y;
+        *adcompMove = true;
+        IChart(Comp.x, Comp.y, arr,Comp);
+      }
+      break;
+    case 2:
+      if(arr[x][y] == 'O' && arr[x+1][y+1] == 0 && arr[x+2][y+2] == 'O' && x > 0 && x < 16&& compMove == false){
+        Comp.x = x+1;
+        Comp.y = y+1;
+        *adcompMove = true;
+        IChart(Comp.x, Comp.y, arr,Comp);
+      }
+    break;
+    case 3:
+      if(arr[x][y] == 'O' && arr[x+1][y+1] == 0 && arr[x+2][y+2] == 'O' && x > 0 && x < 16&& compMove == false){
+        Comp.x = x+1;
+        Comp.y = y+1;
+        *adcompMove = true;
+        IChart(Comp.x, Comp.y, arr,Comp);
+      }
+    break;
+    case 4:
+      if(arr[x][y] == 'O' && arr[x+1][y-1] == 0 && arr[x+2][y-2] == 'O' && x > 0 && x < 16&& compMove == false){
+        Comp.x = x+1;
+        Comp.y = y-1;
+        *adcompMove = true;
+        IChart(Comp.x, Comp.y, arr,Comp);
+      }
+    break;
+    case 5:
+      if(arr[x][y] == 'O' && arr[x+1][y-1] == 0 && arr[x+2][y-2] == 'O' && x > 0 && x < 16&& compMove == false){
+        Comp.x = x+1;
+        Comp.y = y-1;
+        *adcompMove = true;
+        IChart(Comp.x, Comp.y, arr,Comp);
+      }
+    break;
+  }
+}
 void Win_attack(char arr[16][16], int cnt[6],pData P1, pData Comp,int x,int y, int k,bool compMove,bool * adcompMove,int h){/*
   when k = 4, it will try to make OOOOO;
   when k = 3, it will try to do OOOO;(this is at the same case with human make XXX and comp need to defend, so it somehow depend on luck whether it will attack or OFFENSE)
@@ -400,6 +452,7 @@ void Win_attack(char arr[16][16], int cnt[6],pData P1, pData Comp,int x,int y, i
     cnt[k] = 0;
   }
 }
+
 void compWhatevermove(pData Comp,pData P, char arr[16][16],int*x,int*y){//this is for comp to randomly select the path
   *x = P.x+rand()%3 -1;
   *y = P.y+rand()%3 -1;
@@ -434,6 +487,14 @@ void VERY_STUPID_COMP(pData P, pData Comp, char arr[16][16],int*Compx,int*Compy)
   }
   if(compMove == false){
     for(int x = 1; x < 16; x++){
+      int i = 0;
+        for(int y = 1; y < 16; y++){
+      i++;
+      }
+    }
+  }
+  if(compMove == false){
+    for(int x = 1; x < 16; x++){
     int i = 0;
       //printf("OFFENSE");
       for(int y = 1; y < 16; y++){
@@ -448,7 +509,13 @@ void VERY_STUPID_COMP(pData P, pData Comp, char arr[16][16],int*Compx,int*Compy)
         Win_continuous(arr,cnt,P,Comp,x+i-15,y,2,compMove,&compMove);//oblique 1 uppercase
         Win_continuous(arr,cnt,P,Comp,x+i,y,3,compMove,&compMove);//oblique 1 lowercase
         Win_continuous(arr,cnt,P,Comp,y,x-i,4,compMove,&compMove);//oblique 2 uppercase
-        Win_continuous(arr,cnt,P,Comp,y,16-i+x,5,compMove,&compMove);//oblique 2 lowercaseWin_attack(arr,cntO,P,Comp,x,y,0,compMove,&compMove,2);//horizontal
+        Win_continuous(arr,cnt,P,Comp,y,16-i+x,5,compMove,&compMove);//oblique 2 lowercase
+        Win_OOO(arr,cnt,P,Comp,x,y,0,compMove,&compMove);
+        Win_OOO(arr,cnt,P,Comp,x,y,1,compMove,&compMove);
+        Win_OOO(arr,cnt,P,Comp,x,y,2,compMove,&compMove);
+        Win_OOO(arr,cnt,P,Comp,x,y,3,compMove,&compMove);
+        Win_OOO(arr,cnt,P,Comp,x,y,4,compMove,&compMove);
+        Win_OOO(arr,cnt,P,Comp,x,y,5,compMove,&compMove);
         Win_attack(arr,cntO,P,Comp,y,x,1,compMove,&compMove,3);//vertical
         Win_attack(arr,cntO,P,Comp,x+i-15,y,2,compMove,&compMove,3);//oblique 1 uppercase
         Win_attack(arr,cntO,P,Comp,x+i,y,3,compMove,&compMove,3);//oblique 1 lowercase
@@ -474,5 +541,13 @@ void VERY_STUPID_COMP(pData P, pData Comp, char arr[16][16],int*Compx,int*Compy)
   if(compMove == false){
     compWhatevermove(Comp,Comp,arr,Compx,Compy);
     compMove = true;
+  }
+  if(compMove == false){
+    *Compx = rand()%16;
+    *Compy = rand()%16;
+    while(!ValidInp(*Compx, *Compy, arr,false)){
+      *Compx = rand()%16;
+      *Compy = rand()%16;
+  }
   }
 }
