@@ -360,7 +360,7 @@ void Win_OOO(char arr[16][16], int cnt[6],pData P1, pData Comp,int x,int y, int 
     break;
   }
 }
-bool possibleMove(char arr[16][16], int cnt[6],pData P1, pData Comp,int x,int y, int k,bool compMove,bool * adcompMove,bool firstX, bool*adfirstX,dntMove nMove[30]){
+/*bool possibleMove(char arr[16][16], int cnt[6],pData P1, pData Comp,int x,int y, int k,bool compMove,bool * adcompMove,bool firstX, bool*adfirstX,dntMove nMove[30]){
   if(firstX == false && arr[x][y] == 'X'){
     switch(k){
       case 0:
@@ -432,7 +432,7 @@ bool possibleMove(char arr[16][16], int cnt[6],pData P1, pData Comp,int x,int y,
   if((arr[x][y] == 'O' || arr[x][y] == 0) && x > 0 && x < 16 && firstX == true){
     cnt[k]++;
   }
-}
+}*/
 void Win_attack(char arr[16][16], int cnt[6],pData P1, pData Comp,int x,int y, int k,bool compMove,bool * adcompMove,int h){/*
   when k = 4, it will try to make OOOOO;
   when k = 3, it will try to do OOOO;(this is at the same case with human make XXX and comp need to defend, so it somehow depend on luck whether it will attack or OFFENSE)
@@ -561,6 +561,12 @@ void VERY_STUPID_COMP(pData P, pData Comp, char arr[16][16],int*Compx,int*Compy)
       Win_sure(arr,cnt,P,Comp,x,y,3,compMove,&compMove);
       Win_sure(arr,cnt,P,Comp,x,y,4,compMove,&compMove);
       Win_sure(arr,cnt,P,Comp,x,y,5,compMove,&compMove);
+      Win_break(arr,cnt,P,Comp,x,y,0,compMove,&compMove);
+        Win_break(arr,cnt,P,Comp,x,y,1,compMove,&compMove);
+        Win_break(arr,cnt,P,Comp,x,y,2,compMove,&compMove);
+        Win_break(arr,cnt,P,Comp,x,y,3,compMove,&compMove);
+        Win_break(arr,cnt,P,Comp,x,y,4,compMove,&compMove);
+        Win_break(arr,cnt,P,Comp,x,y,5,compMove,&compMove);
       i++;
     }
   }
@@ -586,12 +592,7 @@ void VERY_STUPID_COMP(pData P, pData Comp, char arr[16][16],int*Compx,int*Compy)
     int i = 0;
       //printf("OFFENSE");
       for(int y = 1; y < 16; y++){
-        Win_break(arr,cnt,P,Comp,x,y,0,compMove,&compMove);
-        Win_break(arr,cnt,P,Comp,x,y,1,compMove,&compMove);
-        Win_break(arr,cnt,P,Comp,x,y,2,compMove,&compMove);
-        Win_break(arr,cnt,P,Comp,x,y,3,compMove,&compMove);
-        Win_break(arr,cnt,P,Comp,x,y,4,compMove,&compMove);
-        Win_break(arr,cnt,P,Comp,x,y,5,compMove,&compMove);
+        
         Win_continuous(arr,cnt,P,Comp,x,y,0,compMove,&compMove);//horizontal
         Win_continuous(arr,cnt,P,Comp,y,x,1,compMove,&compMove);//vertical
         Win_continuous(arr,cnt,P,Comp,x+i-15,y,2,compMove,&compMove);//oblique 1 uppercase
